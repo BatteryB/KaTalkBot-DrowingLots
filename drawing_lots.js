@@ -1,10 +1,8 @@
 let isStart = false;
 let Partici = [];
+let ParticiClone = [];
 let Winner = 1;
 let PrizeWinner = [];
-
-let WinnerClone = 0;
-let ParticiClone = [];
 
 function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {
 
@@ -91,7 +89,7 @@ function Cancel(msg, replier) {
 
 function View(msg, replier) {
     if (msg == "!당첨자수 보기" && isStart) {
-        replier.reply("당첨자 수\n" + WinnerClone + "명");
+        replier.reply("당첨자 수\n" + Winner + "명");
     } else if (msg == "!당첨자 보기") {
 
         if (PrizeWinner.length <= 0) {
