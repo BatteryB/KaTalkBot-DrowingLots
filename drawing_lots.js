@@ -1,3 +1,5 @@
+const prefix = '!'; // 접두사 변경 선택 / Select Change Prefix
+
 let isStart = false;
 let Partici = [];
 let ParticiClone = [];
@@ -8,7 +10,7 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 
     if (room == 'your room name') {  //채팅방 이름 수정 필수 / Modifying chat room name is required
 
-        if (msg == "!뽑기") {
+        if (msg == prefix + "뽑기") {
             replier.reply(help());
         }
 
@@ -25,27 +27,27 @@ function response(room, msg, sender, isGroupChat, replier, imageDB, packageName)
 }
 
 function Ready(msg, replier) {
-    if (msg == "!뽑기준비" && !isStart) {
+    if (msg == prefix + "뽑기준비" && !isStart) {
         isStart = !isStart;
         Partici = [];
         Winner = 1;
         PrizeWinner = [];
         replier.reply("뽑기가 준비중 입니다.\n참가자를 등록하고 당첨자 수를 정해주세요.");
-    } else if (msg == "!뽑기준비" && isStart) {
+    } else if (msg == prefix + "뽑기준비" && isStart) {
         replier.reply("뽑기가 이미 준비중입니다.");
     }
 }
 
 function Setting(msg, replier) {
-    if (isStart){
-        if (msg.startsWith("!뽑기참가 ") && isStart) {
+    if (isStart) {
+        if (msg.startsWith(prefix + "뽑기참가 ") && isStart) {
             let Par = msg.substr(6);
             Partici.push(Par);
             ParticiClone = Partici;
             replier.reply(Par + "님이 등록 되었습니다.");
         }
 
-        if (msg.startsWith("!뽑기당첨자수 ")) {
+        if (msg.startsWith(prefix + "뽑기당첨자수 ")) {
             Winner = Number(msg.substr(8));
             WinnerClone = Winner;
             replier.reply("당첨자 수가 " + Winner + "명으로 설정 되었습니다.");
@@ -54,7 +56,7 @@ function Setting(msg, replier) {
 }
 
 function Start(msg, replier) {
-    if (msg == "!뽑기시작" && isStart) {
+    if (msg == prefix + "뽑기시작" && isStart) {
         if (Partici.length < 2) {
             replier.reply("참가자 수가 최소 2명 이상은 있어야 합니다.");
         } else if (Partici.length <= Winner) {
@@ -73,32 +75,32 @@ function Start(msg, replier) {
             isStart = !isStart;
             Partici = [];
         }
-    } else if (msg == "!뽑기시작" && !isStart) {
+    } else if (msg == prefix + "뽑기시작" && !isStart) {
         replier.reply("준비 되어있는 뽑기가 없습니다.");
     }
 }
 
 function Cancel(msg, replier) {
-    if (msg == "!뽑기취소" && isStart) {
+    if (msg == prefix + "뽑기취소" && isStart) {
         isStart = !isStart;
         replier.reply("진행중인 뽑기가 취소되었습니다.");
-    } else if (msg == "!뽑기취소" && !isStart) {
+    } else if (msg == - prefix + "뽑기취소" && !isStart) {
         replier.reply("진행중인 뽑기가 없습니다.");
     }
 }
 
 function View(msg, replier) {
-    if (msg == "!당첨자수 보기" && isStart) {
+    if (msg == prefix + "당첨자수 보기" && isStart) {
         replier.reply("당첨자 수\n" + Winner + "명");
-    } else if (msg == "!당첨자 보기") {
+    } else if (msg == prefix + "당첨자 보기") {
 
         if (PrizeWinner.length <= 0) {
             replier.reply("이번 뽑기의 당첨자가 없습니다.");
         } else {
-            replier.reply("이전 뽑기 당첨자 "+ PrizeWinner.length +"명\n"+ PrizeWinner);
+            replier.reply("이전 뽑기 당첨자 " + PrizeWinner.length + "명\n" + PrizeWinner);
         }
 
-    } else if (msg == "!낙첨자 보기") {
+    } else if (msg == prefix + "낙첨자 보기") {
 
         if (ParticiClone.length <= 0) {
             replier.reply("낙첨자가 없습니다.");
@@ -106,7 +108,7 @@ function View(msg, replier) {
             replier.reply("이전 뽑기 낙첨자 " + ParticiClone.length + "명\n" + ParticiClone);
         }
 
-    } else if (msg == "!참가자 보기") {
+    } else if (msg == prefix + "참가자 보기") {
 
         if (Partici.length <= 0) {
             replier.reply("참가자가 없습니다.");
@@ -119,7 +121,7 @@ function View(msg, replier) {
     }
 }
 
-function help(){
+function help() {
     let msg = '뽑기 관련 명령어​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​\n\n';
     const help = [
         '!뽑기준비 - 뽑기를 준비합니다.',
