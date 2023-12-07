@@ -6,7 +6,7 @@ let PrizeWinner = [];
 
 function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {
 
-    if (room == 'your room name') {
+    if (room == 'your room name') {  //채팅방 이름 수정 필수 / Modifying chat room name is required
 
         if (msg == "!뽑기") {
             replier.reply(help());
